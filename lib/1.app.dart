@@ -23,6 +23,7 @@ class _Animate1State extends State<Animate1>
     );
 
     _animation = Tween<double>(begin: 0, end: 2 * pi).animate(_controller);
+    _controller.repeat();
   }
 
   @override
@@ -45,24 +46,29 @@ class _Animate1State extends State<Animate1>
         ),
       ),
       body: Center(
-        child: Transform(
-          alignment: Alignment.center,
-          transform: Matrix4.identity()..rotateZ(0.4),
-          child: Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-                color: Colors.yellow[600],
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-          ),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget? child) {
+            return Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()..rotateX(_animation.value),
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                    color: Colors.yellow[600],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+              ),
+            );
+          },
         ),
       ),
     );
