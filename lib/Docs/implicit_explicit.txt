@@ -1,0 +1,9 @@
+Implicit Animations
+If your animation does only one thing that’s it animates from one value to another and
+is a single widget then you should go with implicit animations.
+Implicit animations offer the easiest
+and fastest way to get started with animations in Flutter.
+
+
+
+

@@ -2,6 +2,7 @@
 import 'dart:math' as math;
 
 import 'package:animation_journey/1.app.dart';
+import 'package:animation_journey/Docs/implicit_foo.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -47,10 +48,20 @@ class HomePage extends StatelessWidget {
                 children: [
                   CustomBtn(
                     text: "Project 1",
-                    pressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Animate1(),
-                    )),
+                    pressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const Animate1(),
+                      ),
+                    ),
                   ),
+                  CustomBtn(
+                    text: "Implicit",
+                    pressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ContainerExpandedAnimate(),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
