@@ -19,7 +19,7 @@ class _ContainerExpandedAnimateState extends State<ContainerExpandedAnimate>
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 3));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
 
     _animation = Tween<double>(begin: 100, end: 200).animate(_controller);
   }

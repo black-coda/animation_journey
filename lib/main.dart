@@ -2,6 +2,7 @@
 import 'dart:math' as math;
 
 import 'package:animation_journey/1.app.dart';
+import 'package:animation_journey/Docs/imp2.dart';
 import 'package:animation_journey/Docs/implicit_foo.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +62,15 @@ class HomePage extends StatelessWidget {
                         builder: (context) => const ContainerExpandedAnimate(),
                       ),
                     ),
-                  )
+                  ),
+                  CustomBtn(
+                    text: "Implicit Rocket Launcher",
+                    pressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const AnimateRocket(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
