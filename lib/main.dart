@@ -80,6 +80,14 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  CustomBtn(
+                    text: "Flutter Docs",
+                    pressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LogoApp2(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

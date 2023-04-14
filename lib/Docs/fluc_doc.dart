@@ -53,13 +53,49 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
   }
 }
 
+class LogoApp2 extends StatefulWidget {
+  const LogoApp2({super.key});
+
+  @override
+  State<LogoApp2> createState() => _LogoApp2State();
+}
+
+class _LogoApp2State extends State<LogoApp2>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+
+    animation = Tween<double>(begin: 0, end: 360).animate(_controller);
+
+    debugPrint(animation.value.toString());
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedLogo(animation: animation);
+  }
+}
+
 class AnimatedLogo extends AnimatedWidget {
   const AnimatedLogo({
     super.key,
     required Animation<double> animation,
   }) : super(listenable: animation);
 
-   @override
+  @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
     return Center(
