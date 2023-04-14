@@ -5,5 +5,9 @@ Implicit animations offer the easiest
 and fastest way to get started with animations in Flutter.
 
 
+Animations can also interpolate types other than double, such as Animation<Color> or Animation<Size>.
 
+An Animation object has state. Its current value is always available in the .value member.
+
+An Animation object knows nothing about rendering or build() functions.
 

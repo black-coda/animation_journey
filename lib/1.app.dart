@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class Animate1 extends StatefulWidget {
@@ -21,8 +19,10 @@ class _Animate1State extends State<Animate1>
       vsync: this,
       duration: const Duration(seconds: 3),
     );
+    final animatedC =
+        CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
 
-    _animation = Tween<double>(begin: 0, end: 2 * pi).animate(_controller);
+    _animation = Tween<double>(begin: 0, end: 1).animate(animatedC);
     _controller.repeat();
   }
 
@@ -50,7 +50,7 @@ class _Animate1State extends State<Animate1>
           animation: _controller,
           builder: (BuildContext context, Widget? child) {
             return Transform(
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               transform: Matrix4.identity()..rotateX(_animation.value),
               child: Container(
                 width: 100,

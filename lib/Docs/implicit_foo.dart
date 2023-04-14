@@ -22,6 +22,9 @@ class _ContainerExpandedAnimateState extends State<ContainerExpandedAnimate>
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
 
     _animation = Tween<double>(begin: 100, end: 200).animate(_controller);
+
+    final animatedC = CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
+
   }
 
   @override

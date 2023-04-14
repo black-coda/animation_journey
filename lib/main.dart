@@ -2,6 +2,7 @@
 import 'dart:math' as math;
 
 import 'package:animation_journey/1.app.dart';
+import 'package:animation_journey/Docs/fluc_doc.dart';
 import 'package:animation_journey/Docs/imp2.dart';
 import 'package:animation_journey/Docs/implicit_foo.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,14 @@ class HomePage extends StatelessWidget {
                     pressed: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const AnimateRocket(),
+                      ),
+                    ),
+                  ),
+                  CustomBtn(
+                    text: "Flutter Docs",
+                    pressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LogoApp(),
                       ),
                     ),
                   ),
