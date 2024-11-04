@@ -1,130 +1,95 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math' as math;
+import 'dart:math';
 
-import 'package:animation_journey/1.app.dart';
-import 'package:animation_journey/Docs/fluc_doc.dart';
-import 'package:animation_journey/Docs/imp2.dart';
-import 'package:animation_journey/Docs/implicit_foo.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      home: HomePage(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(),
     );
   }
 }
 
-Color getRandomColor() =>
-    Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
+    _animation = Tween<double>(begin: 0, end: 2 * pi).animate(_controller);
+    _controller.repeat();
+    // _controller.forward();
+    // _controller.isCompleted ? _controller.reverse() : _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar.medium(
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text(
-                "App Entry",
-                style: TextStyle(letterSpacing: 5),
-              ),
-            ),
-            expandedHeight: 200,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  CustomBtn(
-                    text: "Project 1",
-                    pressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const Animate1(),
-                      ),
-                    ),
-                  ),
-                  CustomBtn(
-                    text: "Implicit",
-                    pressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ContainerExpandedAnimate(),
-                      ),
-                    ),
-                  ),
-                  CustomBtn(
-                    text: "Implicit Rocket Launcher",
-                    pressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const AnimateRocket(),
-                      ),
-                    ),
-                  ),
-                  CustomBtn(
-                    text: "Flutter Docs",
-                    pressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const LogoApp(),
-                      ),
-                    ),
-                  ),
-                  CustomBtn(
-                    text: "Flutter Docs",
-                    pressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const LogoApp2(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
+      appBar: AppBar(
+        title: const Text("Home"),
       ),
-    );
-  }
-}
-
-class CustomBtn extends StatelessWidget {
-  const CustomBtn({
-    Key? key,
-    required this.text,
-    required this.pressed,
-  }) : super(key: key);
-  final String text;
-  final void Function() pressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: null,
-      child: GestureDetector(
-        onTap: pressed,
-        child: ButtonBar(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.send_rounded,
-              color: getRandomColor(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) => Transform(
+                alignment: Alignment.topRight,
+                transform: Matrix4.identity()..rotateX(_animation.value),
+                child: Container(
+                  height: 100,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurple,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(.6),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                        spreadRadius: 2,
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              text,
-              style: TextStyle(color: getRandomColor(), fontSize: 18),
-            ),
+            _controller.isDismissed
+                ? const Text("Completed")
+                : const Text("Not Completed"),
           ],
         ),
       ),
